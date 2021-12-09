@@ -570,34 +570,6 @@ def check_release():
 
     return r
 
-
-def auth():
-    my_provider2 = 'https://reverent-raman:photo-hamlet-ankle-saved-scared-bobbed@nd-539-402-515.p2pify.com'
-    client2 = Web3(Web3.HTTPProvider(my_provider2))
-    print(timestamp(), "Connected to Ethereum BlockChain =", client2.isConnected())
-    # Insert LIMITSWAP Token Contract Here To Calculate Staked Verification
-    address = Web3.toChecksumAddress("0x1712aad2c773ee04bdc9114b32163c058321cd85")
-    abi = standardAbi
-    balanceContract = client2.eth.contract(address=address, abi=abi)
-    decimals = balanceContract.functions.decimals().call()
-    DECIMALS = 10 ** decimals
-
-    # Exception for incorrect Key Input
-    try:
-        decode = decode_key()
-    except Exception:
-        print("There is a problem with your private key : please check if it's correct. Don't enter seed phrase !")
-        logging.info(
-            "There is a problem with your private key : please check if it's correct. Don't enter seed phrase !")
-
-    wallet_address = Web3.toChecksumAddress(decode)
-    balance = balanceContract.functions.balanceOf(wallet_address).call()
-    true_balance = balance / DECIMALS
-    print(timestamp(), "Current Tokens Staked =", true_balance)
-    logging.info("Current Tokens Staked = " + str(true_balance))
-    return true_balance
-
-
 def approve(address, amount):
     print(timestamp(), "Approving", address)
 
@@ -1629,7 +1601,7 @@ try:
     check_logs()
     userpassword = get_password()
     load_wallet_settings(userpassword)
-    true_balance = auth()
+    true_balance = 50
     save_settings(userpassword)
 
     version = 3.36
